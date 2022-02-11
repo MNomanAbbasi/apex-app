@@ -1,20 +1,23 @@
-// ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
+import 'package:tpfm_app/screens/checklist/add-category.dart';
+import 'package:tpfm_app/screens/checklist/addoption.dart';
+import 'package:tpfm_app/screens/checklist/addquestion.dart';
+import 'package:tpfm_app/screens/checklist/checklink.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
 
 import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
 
-class Visit extends StatefulWidget {
-  Visit() : super();
+class Checklist extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+  Checklist() : super();
 
-  final String title = "VISIT";
+  final String title = "CheckList";
 
   @override
-  visitstate createState() => visitstate();
+  checkliststate createState() => checkliststate();
 }
 
-class visitstate extends State<Visit> {
+class checkliststate extends State<Checklist> {
   late List<visitclass> users;
   late List<visitclass> selectedUsers;
   late bool sort;
@@ -80,11 +83,7 @@ class visitstate extends State<Visit> {
                   onSortColum(columnIndex, ascending);
                 }),
             const DataColumn(
-              label: Text("observation"),
-              numeric: false,
-            ),
-            const DataColumn(
-              label: Text("Color"),
+              label: Text("category"),
               numeric: false,
             ),
             const DataColumn(
@@ -108,9 +107,6 @@ class visitstate extends State<Visit> {
                         onTap: () {
                           //  print('Selected ${user.client}');
                         },
-                      ),
-                      DataCell(
-                        Text(user.color),
                       ),
                       DataCell(
                         Row(
@@ -182,15 +178,14 @@ class visitstate extends State<Visit> {
             ),
             Row(children: <Widget>[
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: ElevatedButton(
-                  child: const Text("Add Visit"),
+                  child: const Text("Add Category"),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => addvisit(
+                          builder: (context) => addcategory(
                                 users: users,
                               )),
                     );
@@ -198,19 +193,65 @@ class visitstate extends State<Visit> {
                 ),
               ),
             ]),
+            Row(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ElevatedButton(
+                  child: const Text("Add question"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => addquestion()),
+                    );
+                  },
+                ),
+              ),
+            ]),
+            Row(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ElevatedButton(
+                  child: const Text("Add option"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => addoption(
+                                users: [],
+                              )),
+                    );
+                  },
+                ),
+              ),
+            ]),
+            Row(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ElevatedButton(
+                  child: const Text("LInk"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => checklink()),
+                    );
+                  },
+                ),
+              ),
+            ]),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ElevatedButton(
                     child: Text('SELECTED ${selectedUsers.length}'),
                     onPressed: () {},
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: ElevatedButton(
                     child: const Text('DELETE SELECTED'),
                     onPressed: selectedUsers.isEmpty

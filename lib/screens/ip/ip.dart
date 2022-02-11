@@ -1,43 +1,44 @@
-// ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
+import 'package:tpfm_app/screens/ip/add-ip.dart';
+import 'package:tpfm_app/screens/ip/ip-link.dart';
+import 'package:tpfm_app/screens/program/addprogram.dart';
 
-import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
+class IP extends StatefulWidget {
+  IP() : super();
 
-class Visit extends StatefulWidget {
-  Visit() : super();
-
-  final String title = "VISIT";
+  final String title = "IP";
 
   @override
-  visitstate createState() => visitstate();
+  IPstate createState() => IPstate();
 }
 
-class visitstate extends State<Visit> {
-  late List<visitclass> users;
-  late List<visitclass> selectedUsers;
+class IPstate extends State<IP> {
+  late List<UserProgram> users;
+  late List<UserProgram> selectedUsers;
   late bool sort;
   @override
   @override
   void initState() {
     sort = false;
     selectedUsers = [];
-    users = gvisit;
+    users = gprograms;
     super.initState();
   }
 
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        users.sort((a, b) => a.client.compareTo(b.client));
+        users.sort((a, b) => a.program.compareTo(b.program));
       } else {
-        users.sort((a, b) => b.client.compareTo(a.client));
+        users.sort((a, b) => b.program.compareTo(a.program));
       }
     }
   }
 
-  onSelectedRow(bool selected, visitclass user) async {
+  onSelectedRow(bool selected, UserProgram user) async {
     setState(() {
       if (selected) {
         selectedUsers.add(user);
@@ -50,9 +51,9 @@ class visitstate extends State<Visit> {
   deleteSelected() async {
     setState(() {
       if (selectedUsers.isNotEmpty) {
-        List<visitclass> temp = [];
+        List<UserProgram> temp = [];
         temp.addAll(selectedUsers);
-        for (visitclass user in temp) {
+        for (UserProgram user in temp) {
           users.remove(user);
           selectedUsers.remove(user);
         }
@@ -70,8 +71,12 @@ class visitstate extends State<Visit> {
           sortAscending: sort,
           sortColumnIndex: 0,
           columns: [
+            const DataColumn(
+              label: Text("CLient"),
+              numeric: false,
+            ),
             DataColumn(
-                label: const Text("Client"),
+                label: const Text("Program"),
                 numeric: false,
                 onSort: (columnIndex, ascending) {
                   setState(() {
@@ -80,7 +85,7 @@ class visitstate extends State<Visit> {
                   onSortColum(columnIndex, ascending);
                 }),
             const DataColumn(
-              label: Text("observation"),
+              label: Text("Title"),
               numeric: false,
             ),
             const DataColumn(
@@ -104,10 +109,13 @@ class visitstate extends State<Visit> {
                         Text(user.client),
                       ),
                       DataCell(
-                        Text(user.observation),
+                        Text(user.program),
                         onTap: () {
                           //  print('Selected ${user.client}');
                         },
+                      ),
+                      DataCell(
+                        Text(user.icon),
                       ),
                       DataCell(
                         Text(user.color),
@@ -183,20 +191,30 @@ class visitstate extends State<Visit> {
             Row(children: <Widget>[
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
                 child: ElevatedButton(
-                  child: const Text("Add Visit"),
+                  child: const Text("Link"),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => addvisit(
-                                users: users,
-                              )),
+                      MaterialPageRoute(builder: (context) => IPlink()),
                     );
                   },
                 ),
               ),
+              Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => addIP(
+                                    users: users,
+                                  )),
+                        );
+                      },
+                      child: const Text("Add")))
             ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

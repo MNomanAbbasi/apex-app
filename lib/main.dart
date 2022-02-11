@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tpfm_app/screens/auth/login.dart';
+import 'package:tpfm_app/screens/checklist/checklist.dart';
+import 'package:tpfm_app/screens/ip/ip.dart';
 
 import 'package:tpfm_app/screens/program/program.dart';
 import 'package:tpfm_app/screens/project/project.dart';
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
       ),
-      home: Visit(),
+      home: Checklist(),
     );
   }
 }
