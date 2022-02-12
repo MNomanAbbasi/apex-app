@@ -106,7 +106,7 @@ class _linkbodyState extends State<linkbody> {
               controller: Controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Program',
+                hintText: 'Program ',
               ),
             ),
           ),
