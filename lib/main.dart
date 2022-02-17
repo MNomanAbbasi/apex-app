@@ -5,6 +5,7 @@ import 'package:tpfm_app/screens/auth/login.dart';
 import 'package:tpfm_app/screens/checklist/checklist.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
+import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/ip/ip.dart';
 
 void main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
       ),
-      home: IP(),
+      home: ContentsScreen(),
     );
   }
 }

@@ -171,18 +171,6 @@ class IPstate extends State<IP> {
                                                         id: user['id']),
                                               ),
                                             );
-
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return const AlertDialog(
-                                                  // Retrieve the text the that user has entered by using the
-                                                  // TextEditingController.
-                                                  content: Text(
-                                                      "Delete and Add Again With Modifications"),
-                                                );
-                                              },
-                                            );
                                           },
                                         ),
                                       ],

@@ -87,80 +87,84 @@ class _linkbodyState extends State<linkbody> {
             storedocs.add(a);
             a['id'] = document.id;
             hello = storedocs
-                .where((element) => element['Program'] == "program")
+                .where((element) => element['Client'] == Controller.text)
                 .toList();
           }).toList();
           print(hello);
 
-          return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child: TextField(
-                    controller: Controller,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Program',
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: TextField(
+                      controller: Controller,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Client',
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (hello != null) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const AlertDialog(
-                                  // Retrieve the text the that user has entered by using the
-                                  // TextEditingController.
-                                  content: Text("done"),
-                                );
-                              },
-                            );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const AlertDialog(
-                                  // Retrieve the text the that user has entered by using the
-                                  // TextEditingController.
-                                  content: Text("no record founded"),
-                                );
-                              },
-                            );
-                          }
-                        });
-                      },
-                      child: const Text("submit")),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
-                  child: SingleChildScrollView(
-                    child: DataTable(
-                      columns: const [
-                        DataColumn(
-                          label: Text("PROGRAM"),
-                          numeric: false,
-                        ),
-                      ],
-                      rows: hello
-                          .map((user) => DataRow(cells: [
-                                DataCell(
-                                  Text(user['Client']),
-                                ),
-                              ]))
-                          .toList(),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 150, vertical: 30),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            if (hello != null) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const AlertDialog(
+                                    // Retrieve the text the that user has entered by using the
+                                    // TextEditingController.
+                                    content: Text("done"),
+                                  );
+                                },
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const AlertDialog(
+                                    // Retrieve the text the that user has entered by using the
+                                    // TextEditingController.
+                                    content: Text("no record founded"),
+                                  );
+                                },
+                              );
+                            }
+                            //getAds();
+                          });
+                        },
+                        child: const Text("submit")),
                   ),
-                )
-              ]);
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 150, vertical: 30),
+                    child: SingleChildScrollView(
+                      child: DataTable(
+                        columns: const [
+                          DataColumn(
+                            label: Text("Program"),
+                            numeric: false,
+                          ),
+                        ],
+                        rows: hello
+                            .map((user) => DataRow(cells: [
+                                  DataCell(
+                                    Text(user['Program']),
+                                  ),
+                                ]))
+                            .toList(),
+                      ),
+                    ),
+                  )
+                ]),
+          );
         });
   }
 }
