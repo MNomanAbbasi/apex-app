@@ -1,15 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tpfm_app/screens/addProduct.dart';
 import 'package:tpfm_app/screens/auth/login.dart';
 import 'package:tpfm_app/screens/checklist/checklist.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/ip/ip.dart';
 
-import 'package:tpfm_app/screens/program/program.dart';
-import 'package:tpfm_app/screens/project/project.dart';
-import 'package:tpfm_app/screens/visit%20status/visit.dart';
-
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
       ),
-      home: Checklist(),
+      home: IP(),
     );
   }
 }

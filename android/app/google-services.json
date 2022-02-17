@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "287557108844",
+    "project_id": "apex-b5790",
+    "storage_bucket": "apex-b5790.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287557108844:android:bf0c1c8bbb9b04828c0449",
+        "android_client_info": {
+          "package_name": "com.aisoftsol.tpfm_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287557108844-ks6mb8q3rl0ar6l1da98ghhbhh5km1ht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aisoftsol.tpfm_app",
+            "certificate_hash": "3f3c6d38358330f61a3adb159267914558ce7180"
+          }
+        },
+        {
+          "client_id": "287557108844-iida6had3fgvp6e9i30h9fpkpcqlqh1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs2H53hHgQmF0iALFQ67LayPsQxCptB_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287557108844-iida6had3fgvp6e9i30h9fpkpcqlqh1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

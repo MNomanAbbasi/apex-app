@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/program/addprogram.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class addIP extends StatelessWidget {
   List<UserProgram> users;
@@ -13,7 +13,7 @@ class addIP extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ADD program"),
+        title: const Text("ADD IP"),
       ),
       body: MyCustomForm(
         users: users,
@@ -44,74 +44,80 @@ class MyCustomForm extends StatelessWidget {
     // ignore: unused_local_variable
     var typeController = TextEditingController();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            controller: Controller,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Program',
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: TextField(
+              controller: Controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Program',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: TextField(
-            controller: lastnameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'client',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: lastnameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'client',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: TextField(
-            controller: usernameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'color',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: usernameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'color',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: TextField(
-            controller: clientController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'icon  ',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: clientController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Title  ',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
-          child: ElevatedButton(
-              onPressed: () {
-                gprograms.add(UserProgram(
-                  program: Controller.text,
-                  client: lastnameController.text,
-                  color: usernameController.text,
-                  icon: clientController.text,
-                ));
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
+            child: ElevatedButton(
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection("students")
+                      .doc()
+                      .set({
+                    "Program": Controller.text,
+                    "Client": lastnameController.text,
+                    "Color": usernameController.text,
+                    "Title": clientController.text,
+                  });
 
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AlertDialog(
-                      // Retrieve the text the that user has entered by using the
-                      // TextEditingController.
-                      content: Text("done"),
-                    );
-                  },
-                );
-              },
-              child: const Text("submit")),
-        ),
-      ],
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AlertDialog(
+                        // Retrieve the text the that user has entered by using the
+                        // TextEditingController.
+                        content: Text("done"),
+                      );
+                    },
+                  );
+                },
+                child: const Text("submit")),
+          ),
+        ],
+      ),
     );
   }
 }
