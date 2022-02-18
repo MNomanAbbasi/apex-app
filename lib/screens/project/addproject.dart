@@ -1,7 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:tpfm_app/screens/program/addprogram.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ignore: camel_case_types
 class addproject extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,10 +20,8 @@ class addproject extends StatelessWidget {
 class MyCustomForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var usernameController = TextEditingController();
     var Controller = TextEditingController();
     var lastnameController = TextEditingController();
-    var clientController = TextEditingController();
     // ignore: unused_local_variable
     var projectController = TextEditingController();
     // ignore: unused_local_variable

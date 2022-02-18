@@ -24,7 +24,7 @@ class _AllScreensState extends State<AllScreens> {
 
   List screens = [
     ContentsScreen(),
-    const DataTableDemo(),
+    members(),
     ReportsScreen(),
     ExportScreen(),
     adduser(

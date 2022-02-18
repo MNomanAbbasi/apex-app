@@ -1,16 +1,13 @@
-// ignore_for_file: use_key_in_widget_constructors, non_constant_identifier_names
-
 import 'package:flutter/material.dart';
-
+import 'package:tpfm_app/screens/program/addprogram.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// ignore: camel_case_types
-class addcategory extends StatelessWidget {
+class addmember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ADD CATEGORY"),
+        title: const Text("ADD Member"),
       ),
       body: MyCustomForm(),
     );
@@ -20,11 +17,11 @@ class addcategory extends StatelessWidget {
 class MyCustomForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var usernameController = TextEditingController();
     var Controller = TextEditingController();
     var lastnameController = TextEditingController();
-    // ignore: unused_local_variable
+    var clientController = TextEditingController();
     var projectController = TextEditingController();
-    // ignore: unused_local_variable
     var typeController = TextEditingController();
 
     return SingleChildScrollView(
@@ -38,7 +35,47 @@ class MyCustomForm extends StatelessWidget {
               controller: Controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Program',
+                hintText: 'name',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: usernameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'username',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: clientController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'client province',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: projectController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'project',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: typeController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'type',
               ),
             ),
           ),
@@ -48,7 +85,7 @@ class MyCustomForm extends StatelessWidget {
               controller: lastnameController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Category',
+                hintText: 'status',
               ),
             ),
           ),
@@ -57,11 +94,15 @@ class MyCustomForm extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () async {
                   await FirebaseFirestore.instance
-                      .collection("Category")
+                      .collection("Members")
                       .doc()
                       .set({
-                    "program": Controller.text,
-                    "category": lastnameController.text,
+                    "name": Controller.text,
+                    "username": usernameController.text,
+                    "client_province": clientController.text,
+                    "project": projectController.text,
+                    "type": typeController.text,
+                    "status": lastnameController.text,
                   });
 
                   showDialog(

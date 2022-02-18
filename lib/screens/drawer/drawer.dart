@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/all_screens.dart';
+import 'package:tpfm_app/screens/checklist/categoryquestion.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/export/export.dart';
 import 'package:tpfm_app/screens/members/members.dart';
@@ -68,7 +69,7 @@ class Mydrawer extends StatelessWidget {
             onTap: (() {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const DataTableDemo()),
+                MaterialPageRoute(builder: (context) => members()),
               );
             }),
             leading: const Icon(
@@ -100,7 +101,10 @@ class Mydrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              //print("m nouman abbasi");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => category()),
+              );
             },
             leading: const Icon(
               Icons.list_alt_rounded,

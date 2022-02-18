@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +33,7 @@ class _UpdateStudentPageState extends State<updateproject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Student"),
+        title: const Text("Update Student"),
       ),
       body: Form(
           key: _formKey,
@@ -46,7 +48,7 @@ class _UpdateStudentPageState extends State<updateproject> {
                 print('Something Went Wrong');
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -55,16 +57,17 @@ class _UpdateStudentPageState extends State<updateproject> {
               var email = data['name'];
 
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: ListView(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
                         initialValue: email,
                         autofocus: false,
                         onChanged: (value) => email = value,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'client: ',
                           labelStyle: TextStyle(fontSize: 20.0),
                           border: OutlineInputBorder(),
@@ -80,12 +83,12 @@ class _UpdateStudentPageState extends State<updateproject> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
                         initialValue: name,
                         autofocus: false,
                         onChanged: (value) => name = value,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'name: ',
                           labelStyle: TextStyle(fontSize: 20.0),
                           border: OutlineInputBorder(),
@@ -112,14 +115,14 @@ class _UpdateStudentPageState extends State<updateproject> {
                                 Navigator.pop(context);
                               }
                             },
-                            child: Text(
+                            child: const Text(
                               'Update',
                               style: TextStyle(fontSize: 18.0),
                             ),
                           ),
                           ElevatedButton(
                             onPressed: () => {},
-                            child: Text(
+                            child: const Text(
                               'Reset',
                               style: TextStyle(fontSize: 18.0),
                             ),

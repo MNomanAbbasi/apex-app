@@ -1,19 +1,15 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tpfm_app/screens/program/addprogram.dart';
-import 'package:tpfm_app/screens/program/link.dart';
+
 import 'package:tpfm_app/screens/project/addclient.dart';
-import 'package:tpfm_app/screens/project/addproject.dart';
+
 import 'package:tpfm_app/screens/project/updateclient.dart';
-import 'package:tpfm_app/screens/project/updateproject.dart';
-import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
-import 'package:tpfm_app/screens/visit%20status/updatevisit.dart';
 
 class client extends StatefulWidget {
-  client() : super();
+  const client() : super();
 
   final String title = "Client";
 
@@ -54,7 +50,7 @@ class IPstate extends State<client> {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

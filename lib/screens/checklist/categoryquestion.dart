@@ -1,31 +1,30 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:tpfm_app/screens/checklist/add-category.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tpfm_app/screens/members/addmember.dart';
-import 'package:tpfm_app/screens/members/updatemembers.dart';
 
 import 'package:tpfm_app/screens/project/addproject.dart';
 import 'package:tpfm_app/screens/project/client.dart';
 import 'package:tpfm_app/screens/project/updateproject.dart';
 
-class members extends StatefulWidget {
-  members() : super();
+class category extends StatefulWidget {
+  category() : super();
 
-  final String title = "Members";
+  final String title = "Category";
 
   @override
   IPstate createState() => IPstate();
 }
 
-class IPstate extends State<members> {
+class IPstate extends State<category> {
   final Stream<QuerySnapshot> studentsStream =
-      FirebaseFirestore.instance.collection("Members").snapshots();
+      FirebaseFirestore.instance.collection("Category").snapshots();
 
   ///for deleting
   CollectionReference students =
-      FirebaseFirestore.instance.collection("Members");
+      FirebaseFirestore.instance.collection("Category");
   Future<void> deleteUser(id) {
     // print("User Deleted $id");
     return students
@@ -99,33 +98,17 @@ class IPstate extends State<members> {
                           sortColumnIndex: 0,
                           columns: [
                             const DataColumn(
-                              label: Text("Name"),
-                              numeric: false,
-                            ),
-                            const DataColumn(
-                              label: Text("User Name"),
-                              numeric: false,
-                            ),
-                            const DataColumn(
-                              label: Text("Client Province"),
-                              numeric: false,
-                            ),
-                            const DataColumn(
-                              label: Text("Project"),
+                              label: Text("Program"),
                               numeric: false,
                             ),
                             DataColumn(
-                                label: const Text("Type"),
+                                label: const Text("Category"),
                                 numeric: false,
                                 onSort: (columnIndex, ascending) {
                                   setState(() {
                                     sort = !sort;
                                   });
                                 }),
-                            const DataColumn(
-                              label: Text("Status"),
-                              numeric: false,
-                            ),
                             const DataColumn(
                               label: Text("option"),
                               numeric: false,
@@ -135,22 +118,10 @@ class IPstate extends State<members> {
                               .map(
                                 (user) => DataRow(cells: [
                                   DataCell(
-                                    Text(user['name']),
+                                    Text(user['program']),
                                   ),
                                   DataCell(
-                                    Text(user['username']),
-                                  ),
-                                  DataCell(
-                                    Text(user['client_province']),
-                                  ),
-                                  DataCell(
-                                    Text(user['project']),
-                                  ),
-                                  DataCell(
-                                    Text(user['type']),
-                                  ),
-                                  DataCell(
-                                    Text(user['status']),
+                                    Text(user['category']),
                                     onTap: () {
                                       //  print('Selected ${user.client}');
                                     },
@@ -176,20 +147,6 @@ class IPstate extends State<members> {
                                             });
                                           },
                                         ),
-                                        IconButton(
-                                          color: const Color(0xff444444),
-                                          icon: const Icon(Icons.edit),
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    updatemember(
-                                                        id: user['id']),
-                                              ),
-                                            );
-                                          },
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -208,7 +165,7 @@ class IPstate extends State<members> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => addmember()),
+                                    builder: (context) => addcategory()),
                               );
                             },
                             child: const Text("Add"))),

@@ -3,13 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tpfm_app/screens/program/addprogram.dart';
-import 'package:tpfm_app/screens/program/link.dart';
+
 import 'package:tpfm_app/screens/project/addproject.dart';
 import 'package:tpfm_app/screens/project/client.dart';
 import 'package:tpfm_app/screens/project/updateproject.dart';
-import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
-import 'package:tpfm_app/screens/visit%20status/updatevisit.dart';
+
 
 class project extends StatefulWidget {
   project() : super();
@@ -53,7 +51,7 @@ class IPstate extends State<project> {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -192,7 +190,7 @@ class IPstate extends State<project> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => client()),
+                                    builder: (context) => const client()),
                               );
                             },
                             child: const Text("CLIENT")))
