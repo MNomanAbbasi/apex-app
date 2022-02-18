@@ -8,11 +8,11 @@ class IPlink extends StatefulWidget {
 }
 
 class _linkState extends State<IPlink> {
-  late List<UserProgram> users;
+  
 
   @override
   void initState() {
-    users = gprograms;
+   
     super.initState();
   }
 
@@ -23,7 +23,7 @@ class _linkState extends State<IPlink> {
         title: const Text("LINk"),
       ),
       body: linkbody(
-        users: users,
+      
       ),
     );
   }
@@ -31,12 +31,7 @@ class _linkState extends State<IPlink> {
 
 // ignore: camel_case_types
 class linkbody extends StatefulWidget {
-  List<UserProgram> users;
 
-  linkbody({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
 
   @override
   State<linkbody> createState() => _linkbodyState();
@@ -45,27 +40,16 @@ class linkbody extends StatefulWidget {
 class _linkbodyState extends State<linkbody> {
   // ignore: non_constant_identifier_names
   var Controller = TextEditingController();
-  late List<UserProgram> contains;
+
   final Stream<QuerySnapshot> studentsStream =
       FirebaseFirestore.instance.collection('students').snapshots();
   @override
   void initState() {
-    findPersonUsingWhere(Controller.text);
+    
 
     super.initState();
   }
 
-  bool findPersonUsingWhere(String client) {
-    // Return list of people matching the condition
-    contains =
-        widget.users.where((element) => element.client == client).toList();
-
-    if (contains.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

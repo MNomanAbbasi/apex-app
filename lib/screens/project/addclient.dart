@@ -1,37 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:tpfm_app/screens/project/addproject.dart';
+import 'package:tpfm_app/screens/program/addprogram.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class addclient extends StatelessWidget {
-  List<projectclass> users;
-  addclient({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ADD client"),
+        title: const Text("ADD Client"),
       ),
-      body: MyCustomForm(
-        users: users,
-      ),
+      body: MyCustomForm(),
     );
   }
 }
 
 class MyCustomForm extends StatelessWidget {
-  List<projectclass> users;
-  List<projectclass> getUsers() {
-    return users;
-  }
-
-  MyCustomForm({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     var usernameController = TextEditingController();
@@ -43,64 +26,58 @@ class MyCustomForm extends StatelessWidget {
     // ignore: unused_local_variable
     var typeController = TextEditingController();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            controller: Controller,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Title',
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: TextField(
+              controller: Controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Title',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: TextField(
-            controller: lastnameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Color',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: lastnameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Status',
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: TextField(
-            controller: usernameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Project Type',
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
-          child: ElevatedButton(
-              onPressed: () {
-                gprojects.add(projectclass(
-                  projectname: usernameController.text,
-                  client: Controller.text,
-                  color: lastnameController.text,
-                  icon: clientController.text,
-                ));
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
+            child: ElevatedButton(
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection("Client")
+                      .doc()
+                      .set({
+                    "Title": Controller.text,
+                    "Status": lastnameController.text,
+                  });
 
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AlertDialog(
-                      // Retrieve the text the that user has entered by using the
-                      // TextEditingController.
-                      content: Text("done"),
-                    );
-                  },
-                );
-              },
-              child: const Text("submit")),
-        ),
-      ],
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AlertDialog(
+                        // Retrieve the text the that user has entered by using the
+                        // TextEditingController.
+                        content: Text("done"),
+                      );
+                    },
+                  );
+                },
+                child: const Text("submit")),
+          ),
+        ],
+      ),
     );
   }
 }

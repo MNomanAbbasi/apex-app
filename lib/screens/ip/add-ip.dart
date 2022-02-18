@@ -3,12 +3,8 @@ import 'package:tpfm_app/screens/program/addprogram.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class addIP extends StatelessWidget {
-  List<UserProgram> users;
-  addIP({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
-
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,22 +12,14 @@ class addIP extends StatelessWidget {
         title: const Text("ADD IP"),
       ),
       body: MyCustomForm(
-        users: users,
+      
       ),
     );
   }
 }
 
 class MyCustomForm extends StatelessWidget {
-  List<UserProgram> users;
-  List<UserProgram> getUsers() {
-    return users;
-  }
-
-  MyCustomForm({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
+ 
 
   @override
   Widget build(BuildContext context) {

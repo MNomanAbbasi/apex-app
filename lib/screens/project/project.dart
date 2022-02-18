@@ -1,246 +1,206 @@
-// ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tpfm_app/screens/program/addprogram.dart';
 import 'package:tpfm_app/screens/program/link.dart';
-import 'package:tpfm_app/screens/project/addclient.dart';
 import 'package:tpfm_app/screens/project/addproject.dart';
+import 'package:tpfm_app/screens/project/client.dart';
+import 'package:tpfm_app/screens/project/updateproject.dart';
+import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
+import 'package:tpfm_app/screens/visit%20status/updatevisit.dart';
 
 class project extends StatefulWidget {
   project() : super();
 
-  final String title = "Project & Client";
+  final String title = "Project";
 
   @override
-  projectstate createState() => projectstate();
+  IPstate createState() => IPstate();
 }
 
-class projectstate extends State<project> {
-  late List<projectclass> users;
-  late List<projectclass> selectedUsers;
+class IPstate extends State<project> {
+  final Stream<QuerySnapshot> studentsStream =
+      FirebaseFirestore.instance.collection("Project").snapshots();
+
+  ///for deleting
+  CollectionReference students =
+      FirebaseFirestore.instance.collection("Project");
+  Future<void> deleteUser(id) {
+    // print("User Deleted $id");
+    return students
+        .doc(id)
+        .delete()
+        .then((value) => print('User Deleted'))
+        .catchError((error) => print('Failed to Delete user: $error'));
+  }
+
   late bool sort;
   @override
   @override
   void initState() {
     sort = false;
-    selectedUsers = [];
-    users = gprojects;
     super.initState();
-  }
-
-  onSortColum(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      if (ascending) {
-        users.sort((a, b) => a.projectname.compareTo(b.projectname));
-      } else {
-        users.sort((a, b) => b.projectname.compareTo(a.projectname));
-      }
-    }
-  }
-
-  onSelectedRow(bool selected, projectclass user) async {
-    setState(() {
-      if (selected) {
-        selectedUsers.add(user);
-      } else {
-        selectedUsers.remove(user);
-      }
-    });
-  }
-
-  deleteSelected() async {
-    setState(() {
-      if (selectedUsers.isNotEmpty) {
-        List<projectclass> temp = [];
-        temp.addAll(selectedUsers);
-        for (projectclass user in temp) {
-          users.remove(user);
-          selectedUsers.remove(user);
-        }
-      }
-    });
-  }
-
-  SingleChildScrollView dataBody() {
-    return SingleChildScrollView(
-      //scrollDirection: Axis.vertical,
-      scrollDirection: Axis.horizontal,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: DataTable(
-          sortAscending: sort,
-          sortColumnIndex: 0,
-          columns: [
-            const DataColumn(
-              label: Text("CLient"),
-              numeric: false,
-            ),
-            DataColumn(
-                label: const Text("Project"),
-                numeric: false,
-                onSort: (columnIndex, ascending) {
-                  setState(() {
-                    sort = !sort;
-                  });
-                  onSortColum(columnIndex, ascending);
-                }),
-            const DataColumn(
-              label: Text("Color"),
-              numeric: false,
-            ),
-            const DataColumn(
-              label: Text("option"),
-              numeric: false,
-              tooltip: "This is type Name",
-            ),
-          ],
-          rows: users
-              .map(
-                (user) => DataRow(
-                    selected: selectedUsers.contains(user),
-                    onSelectChanged: (b) {
-                      onSelectedRow(b!, user);
-                    },
-                    cells: [
-                      DataCell(
-                        Text(user.client),
-                      ),
-                      DataCell(
-                        Text(user.projectname),
-                        onTap: () {
-                          //  print('Selected ${user.client}');
-                        },
-                      ),
-                      DataCell(
-                        Text(user.color),
-                      ),
-                      DataCell(
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              color: const Color(0xff444444),
-                              icon: const Icon(Icons.settings),
-                              onPressed: () {
-                                setState(() {});
-                              },
-                            ),
-                            IconButton(
-                              color: const Color(0xff444444),
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return const AlertDialog(
-                                      // Retrieve the text the that user has entered by using the
-                                      // TextEditingController.
-                                      content: Text(
-                                          "Delete and Add Again With Modifications"),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]),
-              )
-              .toList(),
-        ),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                setState(() {
-                  onSortColum(0, true);
-                });
-              },
-            ),
-          ],
-        ),
-        drawer: Mydrawer(),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          verticalDirection: VerticalDirection.down,
-          children: <Widget>[
-            Expanded(
-              child: dataBody(),
-            ),
-            Row(children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                child: ElevatedButton(
-                  child: const Text("Addclient"),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => addclient(
-                                users: users,
-                              )),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Addproject(
-                                    users: users,
-                                  )),
-                        );
-                      },
-                      child: const Text("Add project")))
-            ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ElevatedButton(
-                    child: Text('SELECTED ${selectedUsers.length}'),
-                    onPressed: () {},
+    return StreamBuilder<QuerySnapshot>(
+        stream: studentsStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final List storedocs = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map a = document.data() as Map<String, dynamic>;
+            storedocs.add(a);
+            a['id'] = document.id;
+          }).toList();
+
+          // print(storedocs);
+          print(storedocs.length);
+          return SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {});
+                    },
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ElevatedButton(
-                    child: const Text('DELETE SELECTED'),
-                    onPressed: selectedUsers.isEmpty
-                        ? null
-                        : () {
-                            deleteSelected();
-                          },
+                ],
+              ),
+              drawer: Mydrawer(),
+              body: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                children: <Widget>[
+                  Expanded(
+                    child: SingleChildScrollView(
+                      //scrollDirection: Axis.vertical,
+                      scrollDirection: Axis.horizontal,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: DataTable(
+                          sortAscending: sort,
+                          sortColumnIndex: 0,
+                          columns: [
+                            const DataColumn(
+                              label: Text("cLient"),
+                              numeric: false,
+                            ),
+                            DataColumn(
+                                label: const Text("Project Name"),
+                                numeric: false,
+                                onSort: (columnIndex, ascending) {
+                                  setState(() {
+                                    sort = !sort;
+                                  });
+                                }),
+                            const DataColumn(
+                              label: Text("option"),
+                              numeric: false,
+                            ),
+                          ],
+                          rows: storedocs
+                              .map(
+                                (user) => DataRow(cells: [
+                                  DataCell(
+                                    Text(user['client']),
+                                  ),
+                                  DataCell(
+                                    Text(user['name']),
+                                    onTap: () {
+                                      //  print('Selected ${user.client}');
+                                    },
+                                  ),
+                                  DataCell(
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                          color: const Color(0xff444444),
+                                          icon: const Icon(Icons.settings),
+                                          onPressed: () {
+                                            setState(() {});
+                                          },
+                                        ),
+                                        IconButton(
+                                          color: const Color(0xff444444),
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () {
+                                            setState(() {
+                                              deleteUser(user['id']);
+                                            });
+                                          },
+                                        ),
+                                        IconButton(
+                                          color: const Color(0xff444444),
+                                          icon: const Icon(Icons.edit),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    updateproject(
+                                                        id: user['id']),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ]),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  Row(children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => addproject()),
+                              );
+                            },
+                            child: const Text("Add"))),
+                             Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => client()),
+                              );
+                            },
+                            child: const Text("CLIENT")))
+                  ]),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }

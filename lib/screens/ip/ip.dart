@@ -204,9 +204,7 @@ class IPstate extends State<IP> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => addIP(
-                                          users: [],
-                                        )),
+                                    builder: (context) => addIP()),
                               );
                             },
                             child: const Text("Add")))

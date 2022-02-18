@@ -7,6 +7,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/ip/ip.dart';
+import 'package:tpfm_app/screens/program/program.dart';
+import 'package:tpfm_app/screens/project/client.dart';
+import 'package:tpfm_app/screens/project/project.dart';
+import 'package:tpfm_app/screens/visit%20status/visit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
       ),
-      home: ContentsScreen(),
+      home: project(),
     );
   }
 }

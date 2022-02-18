@@ -2,30 +2,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
-import 'package:tpfm_app/screens/ip/add-ip.dart';
-import 'package:tpfm_app/screens/ip/ip-link.dart';
-import 'package:tpfm_app/screens/ip/update.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tpfm_app/screens/program/addprogram.dart';
 import 'package:tpfm_app/screens/program/link.dart';
-import 'package:tpfm_app/screens/program/updateprogram.dart';
+import 'package:tpfm_app/screens/project/addclient.dart';
+import 'package:tpfm_app/screens/project/addproject.dart';
+import 'package:tpfm_app/screens/project/updateclient.dart';
+import 'package:tpfm_app/screens/project/updateproject.dart';
+import 'package:tpfm_app/screens/visit%20status/addvisit.dart';
+import 'package:tpfm_app/screens/visit%20status/updatevisit.dart';
 
-class program extends StatefulWidget {
-  program() : super();
+class client extends StatefulWidget {
+  client() : super();
 
-  final String title = "program";
+  final String title = "Client";
 
   @override
   IPstate createState() => IPstate();
 }
 
-class IPstate extends State<program> {
+class IPstate extends State<client> {
   final Stream<QuerySnapshot> studentsStream =
-      FirebaseFirestore.instance.collection("Program").snapshots();
+      FirebaseFirestore.instance.collection("Client").snapshots();
 
   ///for deleting
   CollectionReference students =
-      FirebaseFirestore.instance.collection("Program");
+      FirebaseFirestore.instance.collection("Client");
   Future<void> deleteUser(id) {
     // print("User Deleted $id");
     return students
@@ -99,21 +101,17 @@ class IPstate extends State<program> {
                           sortColumnIndex: 0,
                           columns: [
                             const DataColumn(
-                              label: Text("cLient"),
+                              label: Text("Title"),
                               numeric: false,
                             ),
                             DataColumn(
-                                label: const Text("program"),
+                                label: const Text("Status"),
                                 numeric: false,
                                 onSort: (columnIndex, ascending) {
                                   setState(() {
                                     sort = !sort;
                                   });
                                 }),
-                            const DataColumn(
-                              label: Text("color"),
-                              numeric: false,
-                            ),
                             const DataColumn(
                               label: Text("option"),
                               numeric: false,
@@ -123,16 +121,13 @@ class IPstate extends State<program> {
                               .map(
                                 (user) => DataRow(cells: [
                                   DataCell(
-                                    Text(user['client']),
+                                    Text(user['Title']),
                                   ),
                                   DataCell(
-                                    Text(user['program']),
+                                    Text(user['Status']),
                                     onTap: () {
                                       //  print('Selected ${user.client}');
                                     },
-                                  ),
-                                  DataCell(
-                                    Text(user['color']),
                                   ),
                                   DataCell(
                                     Row(
@@ -163,7 +158,7 @@ class IPstate extends State<program> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    updateprogram(
+                                                    updateclient(
                                                         id: user['id']),
                                               ),
                                             );
@@ -181,26 +176,13 @@ class IPstate extends State<program> {
                   ),
                   Row(children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 80),
-                      child: ElevatedButton(
-                        child: const Text("Link"),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Link()),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => addprogram()),
+                                    builder: (context) => addclient()),
                               );
                             },
                             child: const Text("Add")))

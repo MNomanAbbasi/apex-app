@@ -1,151 +1,156 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-import 'package:tpfm_app/screens/program/addprogram.dart';
+// import 'package:tpfm_app/screens/program/addprogram.dart';
 
-class checklink extends StatefulWidget {
-  @override
-  State<checklink> createState() => _linkState();
-}
+// class checklink extends StatefulWidget {
+//   @override
+//   State<checklink> createState() => _linkState();
+// }
 
-class _linkState extends State<checklink> {
-  late List<UserProgram> users;
+// class _linkState extends State<checklink> {
+//   late List<UserProgram> users;
 
-  @override
-  void initState() {
-    users = gprograms;
-    super.initState();
-  }
+//   List<UserProgram>? get gprograms => null;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("LINk"),
-      ),
-      body: linkbody(
-        users: users,
-      ),
-    );
-  }
-}
+//   @override
+//   void initState() {
+//     users = gprograms;
+//     super.initState();
+//   }
 
-// ignore: camel_case_types
-class linkbody extends StatefulWidget {
-  List<UserProgram> users;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("LINk"),
+//       ),
+//       body: linkbody(
+//         users: users,
+//       ),
+//     );
+//   }
+// }
 
-  linkbody({
-    Key? key,
-    required this.users,
-  }) : super(key: key);
+// // ignore: camel_case_types
+// class linkbody extends StatefulWidget {
+//   List<UserProgram> users;
 
-  @override
-  State<linkbody> createState() => _linkbodyState();
-}
+//   linkbody({
+//     Key? key,
+//     required this.users,
+//   }) : super(key: key);
 
-class _linkbodyState extends State<linkbody> {
-  // ignore: non_constant_identifier_names
-  var Controller = TextEditingController();
-  late List<UserProgram> contains;
-  @override
-  void initState() {
-    findPersonUsingWhere(Controller.text);
+//   @override
+//   State<linkbody> createState() => _linkbodyState();
+// }
 
-    super.initState();
-  }
+// class UserProgram {
+// }
 
-  bool findPersonUsingWhere(String client) {
-    // Return list of people matching the condition
-    contains =
-        widget.users.where((element) => element.client == client).toList();
+// class _linkbodyState extends State<linkbody> {
+//   // ignore: non_constant_identifier_names
+//   var Controller = TextEditingController();
+//   late List<UserProgram> contains;
+//   @override
+//   void initState() {
+//     findPersonUsingWhere(Controller.text);
 
-    if (contains.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+//     super.initState();
+//   }
 
-  SingleChildScrollView body1() {
-    return SingleChildScrollView(
-      child: DataTable(
-        columns: const [
-          DataColumn(
-            label: Text("PROGRAM"),
-            numeric: false,
-          ),
-        ],
-        rows: contains
-            .map((user) => DataRow(cells: [
-                  DataCell(
-                    Text(user.program),
-                  ),
-                ]))
-            .toList(),
-      ),
-    );
-  }
+//   bool findPersonUsingWhere(String client) {
+//     // Return list of people matching the condition
+//     contains =
+//         widget.users.where((element) => element.client == client).toList();
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: TextField(
-              controller: Controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'client',
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              controller: Controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Program ',
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
-            child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (findPersonUsingWhere(Controller.text)) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            // Retrieve the text the that user has entered by using the
-                            // TextEditingController.
-                            content: Text("done"),
-                          );
-                        },
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            // Retrieve the text the that user has entered by using the
-                            // TextEditingController.
-                            content: Text("no record founded"),
-                          );
-                        },
-                      );
-                    }
-                  });
-                },
-                child: const Text("submit")),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: body1(),
-          )
-        ]);
-  }
-}
+//     if (contains.isNotEmpty) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }
+
+//   SingleChildScrollView body1() {
+//     return SingleChildScrollView(
+//       child: DataTable(
+//         columns: const [
+//           DataColumn(
+//             label: Text("PROGRAM"),
+//             numeric: false,
+//           ),
+//         ],
+//         rows: contains
+//             .map((user) => DataRow(cells: [
+//                   DataCell(
+//                     Text(user.program),
+//                   ),
+//                 ]))
+//             .toList(),
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: <Widget>[
+//           Padding(
+//             padding: const EdgeInsets.symmetric(vertical: 16),
+//             child: TextField(
+//               controller: Controller,
+//               decoration: const InputDecoration(
+//                 border: OutlineInputBorder(),
+//                 hintText: 'client',
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+//             child: TextField(
+//               controller: Controller,
+//               decoration: const InputDecoration(
+//                 border: OutlineInputBorder(),
+//                 hintText: 'Program ',
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 30),
+//             child: ElevatedButton(
+//                 onPressed: () {
+//                   setState(() {
+//                     if (findPersonUsingWhere(Controller.text)) {
+//                       showDialog(
+//                         context: context,
+//                         builder: (context) {
+//                           return const AlertDialog(
+//                             // Retrieve the text the that user has entered by using the
+//                             // TextEditingController.
+//                             content: Text("done"),
+//                           );
+//                         },
+//                       );
+//                     } else {
+//                       showDialog(
+//                         context: context,
+//                         builder: (context) {
+//                           return const AlertDialog(
+//                             // Retrieve the text the that user has entered by using the
+//                             // TextEditingController.
+//                             content: Text("no record founded"),
+//                           );
+//                         },
+//                       );
+//                     }
+//                   });
+//                 },
+//                 child: const Text("submit")),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+//             child: body1(),
+//           )
+//         ]);
+//   }
+// }
