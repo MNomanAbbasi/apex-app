@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tpfm_app/screens/auth/forgotpass.dart';
+
+import '../../all_screens.dart';
 
 class MyLogin extends StatelessWidget {
   const MyLogin({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,13 @@ class MyLogin extends StatelessWidget {
                           .instance
                           .signInWithEmailAndPassword(
                               email: email, password: pass);
-                      Navigator.pushNamed(context, 'home');
+                      Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AllScreens(currentIndex: 0)),
+                                  (route) => false
+                      );
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');

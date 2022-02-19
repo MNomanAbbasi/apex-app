@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/all_screens.dart';
 
@@ -89,17 +90,27 @@ class LoginScreen extends StatelessWidget {
                             "Submit",
                             style: TextStyle(fontSize: 17),
                           ),
-                          onPressed: () {
-                            if (usernameController.text.trim() == "admin" &&
-                                passwordController.text.trim() == "12345") {
-                              Navigator.pushAndRemoveUntil(
+                          onPressed:  () async {
+                    try {
+                      UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .signInWithEmailAndPassword(
+                              email: usernameController.text.trim(), password: passwordController.text.trim());
+                      Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const AllScreens(currentIndex: 0)),
-                                  (route) => false);
-                            }
-                          },
+                                  (route) => false
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+                  },
                         ),
                       ),
                     ],
