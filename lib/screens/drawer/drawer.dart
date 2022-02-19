@@ -6,6 +6,7 @@ import 'package:tpfm_app/all_screens.dart';
 import 'package:tpfm_app/screens/checklist/categoryquestion.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/export/export.dart';
+import 'package:tpfm_app/screens/ip/ip.dart';
 import 'package:tpfm_app/screens/members/members.dart';
 import 'package:tpfm_app/screens/program/program.dart';
 import 'package:tpfm_app/screens/project/project.dart';
@@ -180,6 +181,23 @@ class Mydrawer extends StatelessWidget {
             ),
             title: const Text(
               "EXPORT",
+              style: TextStyle(color: Colors.black54),
+              textScaleFactor: 1.0,
+            ),
+          ),
+          ListTile(
+            onTap: (() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => IP()),
+              );
+            }),
+            leading: const Icon(
+              Icons.network_cell_sharp,
+              color: Colors.black54,
+            ),
+            title: const Text(
+              "IP",
               style: TextStyle(color: Colors.black54),
               textScaleFactor: 1.0,
             ),

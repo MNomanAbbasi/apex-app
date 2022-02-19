@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/checklist/add-category.dart';
+import 'package:tpfm_app/screens/checklist/addoption.dart';
+import 'package:tpfm_app/screens/checklist/addquestion.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -168,7 +170,29 @@ class IPstate extends State<category> {
                                     builder: (context) => addcategory()),
                               );
                             },
-                            child: const Text("Add"))),
+                            child: const Text("Addoption"))),
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => addoption()),
+                              );
+                            },
+                            child: const Text("Add option"))),
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => addquestion()),
+                              );
+                            },
+                            child: const Text("Add question"))),
                   ]),
                 ],
               ),

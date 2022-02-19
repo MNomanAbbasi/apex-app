@@ -6,7 +6,7 @@ import 'package:tpfm_app/screens/reports/addreport.dart';
 
 class addquestion extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  addquestion({Key? key}) : super(key: key);
+ 
 
   @override
   State<addquestion> createState() => _ReportScreenState();
