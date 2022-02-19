@@ -3,13 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tpfm_app/screens/auth/login.dart';
-import 'package:tpfm_app/screens/auth/login1.dart';
 import 'package:tpfm_app/screens/auth/signup.dart';
-import 'package:tpfm_app/screens/checklist/categoryquestion.dart';
-import 'package:tpfm_app/screens/members/members.dart';
-
-import 'package:tpfm_app/screens/project/project.dart';
-import 'package:tpfm_app/screens/reports/reports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

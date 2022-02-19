@@ -2,12 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tpfm_app/all_screens.dart';
 import 'package:tpfm_app/screens/checklist/categoryquestion.dart';
 import 'package:tpfm_app/screens/contents/contents.dart';
 import 'package:tpfm_app/screens/export/export.dart';
 import 'package:tpfm_app/screens/ip/ip.dart';
 import 'package:tpfm_app/screens/members/members.dart';
+import 'package:tpfm_app/screens/navy.dart';
 import 'package:tpfm_app/screens/program/program.dart';
 import 'package:tpfm_app/screens/project/project.dart';
 import 'package:tpfm_app/screens/reports/reports.dart';
@@ -26,7 +26,7 @@ class Mydrawer extends StatelessWidget {
             padding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
             child: UserAccountsDrawerHeader(
-              accountName: Text("Admin"),
+              accountName: Text("USER"),
               accountEmail: Text(""),
             ),
             decoration: BoxDecoration(color: Colors.black),
@@ -35,8 +35,7 @@ class Mydrawer extends StatelessWidget {
             onTap: (() {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const AllScreens(currentIndex: 0)),
+                MaterialPageRoute(builder: (context) => navy(context)),
               );
             }),
             leading: const Icon(
@@ -90,11 +89,11 @@ class Mydrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => Visit()),
               );
             },
-            leading: Icon(
+            leading: const Icon(
               CupertinoIcons.check_mark_circled,
               color: Colors.black54,
             ),
-            title: Text(
+            title: const Text(
               "visit Status",
               style: TextStyle(color: Colors.black54),
               textScaleFactor: 1.0,

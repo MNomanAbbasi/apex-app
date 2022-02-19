@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/screens/contents/updateconten.dart';
 import 'package:tpfm_app/screens/drawer/drawer.dart';
-import 'package:tpfm_app/screens/ip/add-ip.dart';
-import 'package:tpfm_app/screens/ip/ip-link.dart';
-import 'package:tpfm_app/screens/ip/update.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ContentsScreen extends StatefulWidget {

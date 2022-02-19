@@ -1,65 +1,56 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tpfm_app/screens/auth/login.dart';
+import 'package:flutter/material.dart';
 
-
-class LoginScreen1 extends StatefulWidget {
+class signup extends StatefulWidget{
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _signupState createState() => _signupState();
 }
 
-class _LoginScreenState extends State<LoginScreen1> {
-  late String _email, _password;
-  final auth = FirebaseAuth.instance;
-
+class _signupState extends State<signup> {
   @override
+  final _auth=FirebaseAuth.instance;
+  late String _email;
+  late String _password;
   Widget build(BuildContext context) {
-    return Scaffold(  
-      appBar: AppBar(title: Text('Login'),),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(  
-                hintText: 'Email'
-              ),
-               onChanged: (value) {
-                setState(() {
-                  _email = value.trim();
-                });
+    // TODO: implement build
+    return SafeArea(
+      child: Scaffold(
+      
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(labelText: "Email"),
+              onChanged: (value){
+                _email=value;
               },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            TextField(
+              decoration: InputDecoration(labelText: "Passowrd"),
+              onChanged: (value){
+                _password=value;
+              },
               obscureText: true,
-              decoration: InputDecoration(hintText: 'Password'),
-              onChanged: (value) {
-                setState(() {
-                  _password = value.trim();
-                });
-              },
             ),
-            
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:[
-            RaisedButton(
-              color: Theme.of(context).accentColor,
-              child: Text('Signin'),
-              onPressed: (){
-                  auth.signInWithEmailAndPassword(email: _email, password: _password).then((_){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
-                  });
-                  
-            }),
-          
-          ])
-        ],),
+            SizedBox(height: 10,),
+            FlatButton.icon(
+                onPressed: ()async{
+                  try{
+                    final newuser = await _auth.createUserWithEmailAndPassword(
+                        email: _email, password: _password);
+                    if(newuser!=null){
+                      Navigator.pushNamed(context, '/homepage');
+                    }
+                  }
+                  catch(e){
+                   print(e);
+                  }
+                },
+                icon: Icon(Icons.accessibility),
+                label: Text("SignUp")),
+          ],
+        ),
+      ),
     );
   }
 }

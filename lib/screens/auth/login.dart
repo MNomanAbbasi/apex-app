@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfm_app/all_screens.dart';
+import 'package:tpfm_app/screens/auth/signup.dart';
+import 'package:tpfm_app/screens/navy.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -34,22 +36,28 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   Row(
                     children: [
-                      const Text(
-                        "Username: ",
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       Expanded(
                         child: SizedBox(
                           height: 50,
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.top,
-                            style: const TextStyle(fontSize: 18),
-                            controller: usernameController,
+                          child: TextFormField(
+                            initialValue: usernameController.text,
+                            autofocus: false,
+                            onChanged: (value) =>
+                                usernameController.text = value,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
+                              labelText: 'Email: ',
+                              icon: Icon(Icons.email_outlined),
+                              labelStyle: TextStyle(fontSize: 20.0),
+                              border: OutlineInputBorder(),
+                              errorStyle: TextStyle(
+                                  color: Colors.redAccent, fontSize: 15),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                       ),
@@ -58,61 +66,88 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      const Text(
-                        "Password: ",
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       Expanded(
                         child: SizedBox(
                           height: 50,
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.top,
-                            style: const TextStyle(fontSize: 18),
-                            controller: passwordController,
+                          child: TextFormField(
+                            initialValue: passwordController.text,
+                            autofocus: false,
+                            onChanged: (value) =>
+                                passwordController.text = value,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
+                              labelText: 'Password: ',
+                              icon: Icon(Icons.password),
+                              labelStyle: TextStyle(fontSize: 20.0),
+                              border: OutlineInputBorder(),
+                              errorStyle: TextStyle(
+                                  color: Colors.redAccent, fontSize: 15),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter password';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
                   Row(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 40),
+                        child: SizedBox(
+                          height: 45,
+                          width: 100,
+                          child: ElevatedButton(
+                            child: const Text(
+                              "Submit",
+                              style: TextStyle(
+                                fontSize: 17,
+                              ),
+                            ),
+                            onPressed: () async {
+                              try {
+                                UserCredential userCredential =
+                                    await FirebaseAuth.instance
+                                        .signInWithEmailAndPassword(
+                                            email:
+                                                usernameController.text.trim(),
+                                            password:
+                                                passwordController.text.trim());
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            navy(context)),
+                                    (route) => false);
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  print('No user found for that email.');
+                                } else if (e.code == 'wrong-password') {
+                                  print(
+                                      'Wrong password provided for that user.');
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                        height: 45,
-                        width: 100,
-                        child: ElevatedButton(
-                          child: const Text(
-                            "Submit",
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          onPressed:  () async {
-                    try {
-                      UserCredential userCredential = await FirebaseAuth
-                          .instance
-                          .signInWithEmailAndPassword(
-                              email: usernameController.text.trim(), password: passwordController.text.trim());
-                      Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AllScreens(currentIndex: 0)),
-                                  (route) => false
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
-                      } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
-                      }
-                    }
-                  },
-                        ),
+                        height: 10,
                       ),
+                      FlatButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => signup()),
+                            );
+                          },
+                          icon: Icon(Icons.accessibility),
+                          label: Text("SignUp"))
                     ],
                   )
                 ],

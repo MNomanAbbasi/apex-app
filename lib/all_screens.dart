@@ -27,11 +27,6 @@ class _AllScreensState extends State<AllScreens> {
     members(),
     ReportsScreen(),
     ExportScreen(),
-    adduser(
-      users: const [],
-    ),
-    AddReport(),
-    program(),
   ];
 
   @override
@@ -48,10 +43,16 @@ class _AllScreensState extends State<AllScreens> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: "CONTENTS"),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: "MEMBERS"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: "MEMBERS",
+          ),
           BottomNavigationBarItem(
               icon: Icon(Icons.record_voice_over), label: "REPORTS"),
-          BottomNavigationBarItem(icon: Icon(Icons.send), label: "EXPORT"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.send),
+            label: "EXPORT",
+          ),
         ],
         onTap: (index) {
           setState(() {
