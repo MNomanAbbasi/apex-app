@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tpfm_app/screens/auth/login.dart';
 import 'package:tpfm_app/screens/auth/signup.dart';
+import 'package:tpfm_app/screens/reports/reports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

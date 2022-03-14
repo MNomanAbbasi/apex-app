@@ -41,16 +41,59 @@ class _AllScreensState extends State<AllScreens> {
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "CONTENTS"),
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
+              icon: currentIndex == 0
+                  ? const Icon(
+                      Icons.list_outlined,
+                      color: Colors.black,
+                      size: 35,
+                    )
+                  : const Icon(
+                      Icons.list,
+                      color: Colors.black,
+                      size: 35,
+                    ),
+              label: "CONTENTS"),
+          BottomNavigationBarItem(
+            icon: currentIndex == 1
+                ? const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.person_outline,
+                    color: Colors.black,
+                    size: 35,
+                  ),
             label: "MEMBERS",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.record_voice_over), label: "REPORTS"),
+              icon: currentIndex == 2
+                  ? const Icon(
+                      Icons.record_voice_over,
+                      color: Colors.black,
+                      size: 35,
+                    )
+                  : const Icon(
+                      Icons.record_voice_over_outlined,
+                      color: Colors.black,
+                      size: 35,
+                    ),
+              label: "REPORTS"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.send),
+            icon: currentIndex == 3
+                ? const Icon(
+                    Icons.send,
+                    color: Colors.black,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.send_outlined,
+                    color: Colors.black,
+                    size: 35,
+                  ),
             label: "EXPORT",
           ),
         ],

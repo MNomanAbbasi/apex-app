@@ -44,7 +44,8 @@ class contentstate extends State<ContentsScreen> {
     return StreamBuilder<QuerySnapshot>(
         stream: studentsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
+          if (snapshot.hasError)
+           {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {

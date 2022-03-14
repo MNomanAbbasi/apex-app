@@ -12,15 +12,15 @@ class ReportsScreen extends StatefulWidget {
 
   @override
   State<ReportsScreen> createState() => _ReportScreenState();
-  
 }
 
 class _ReportScreenState extends State<ReportsScreen> {
   final Stream<QuerySnapshot> studentsStream =
-      FirebaseFirestore.instance.collection("Visit").snapshots();
+      FirebaseFirestore.instance.collection("students").snapshots();
 
   ///for deleting
-  CollectionReference students = FirebaseFirestore.instance.collection("Visit");
+  CollectionReference students =
+      FirebaseFirestore.instance.collection("students");
   Future<void> deleteUser(id) {
     // print("User Deleted $id");
     return students
@@ -63,7 +63,17 @@ class _ReportScreenState extends State<ReportsScreen> {
     "TPFM OF COMNet"
   ];
 
-  List IPList = ["Select IP", "RID", "SSP", "HF", "CGN", "PHED"];
+  List IPList = [
+    "Select IP",
+    "fwap",
+    "CGN",
+    " SC",
+    "SEED",
+    "SSD",
+    "SED",
+    "SDAS"
+  ];
+
   List programList = [
     "Select program",
     "KP SCS",
@@ -94,12 +104,17 @@ class _ReportScreenState extends State<ReportsScreen> {
           }
 
           final List storedocs = [];
+          List hello = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Map a = document.data() as Map<String, dynamic>;
             storedocs.add(a);
+            hello = storedocs
+                .where((element) => element['Client'] == dropdownClientValue)
+                .toList();
             a['id'] = document.id;
           }).toList();
 
+          //print(hello);
           return Scaffold(
             appBar: AppBar(
               title: const Text("Reports"),
@@ -336,14 +351,11 @@ class _ReportScreenState extends State<ReportsScreen> {
         });
   }
 }
-class share
-{
+
+class share {
   late String clientval;
   late String Provinceval;
   late String ipval;
 
-  mat()
-  {
-    
-  }
+  mat() {}
 }

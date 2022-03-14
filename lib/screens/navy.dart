@@ -55,7 +55,6 @@ class _HomePageState extends State<navy> {
                     Icons.list_outlined,
                     color: Colors.black,
                     size: 35,
-                     
                   )
                 : const Icon(
                     Icons.list,

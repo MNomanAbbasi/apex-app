@@ -72,6 +72,7 @@ class LoginScreen extends StatelessWidget {
                           child: TextFormField(
                             initialValue: passwordController.text,
                             autofocus: false,
+                            obscureText: true,
                             onChanged: (value) =>
                                 passwordController.text = value,
                             decoration: const InputDecoration(
@@ -122,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            navy(context)),
+                                            AllScreens(currentIndex: 0)),
                                     (route) => false);
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
@@ -139,15 +140,15 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      FlatButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => signup()),
-                            );
-                          },
-                          icon: Icon(Icons.accessibility),
-                          label: Text("SignUp"))
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => signup()),
+                          );
+                        },
+                        child: Text("SignUp"),
+                      )
                     ],
                   )
                 ],
